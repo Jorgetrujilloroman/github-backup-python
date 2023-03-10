@@ -1,12 +1,16 @@
 import requests
-import shutil
 import datetime
 import os
+import shutil
 
-def download_repo(repo_url, dest_folder):
+
+#It is important to keep your token safe and don't share it with anyone.
+
+def download_repo(repo_url, dest_folder, branch="main", token=""):
     # Make a GET request to the GitHub API to download the repository as a zip file
-    zip_url = f"{repo_url}/archive/main.zip"
-    response = requests.get(zip_url, stream=True)
+    headers = {"Authorization": f"token {token}"}
+    zip_url = f"{repo_url}/archive/{branch}.zip"
+    response = requests.get(zip_url, headers=headers, stream=True)
 
     # If the response status code is not 200, raise an error
     if response.status_code != 200:
@@ -17,7 +21,7 @@ def download_repo(repo_url, dest_folder):
 
     # Save the contents of the zip file to a local file with the current date in the filename
     now = datetime.datetime.now()
-    filename = f"Docs-Content-Backup_{now.strftime('%Y-%m-%d-%H')}h.zip"
+    filename = f"Docs-conetnt-private-backup_{now.strftime('%Y-%m-%d-%H')}_{branch}h.zip"
     filepath = os.path.join(dest_folder, filename)
 
     with open(filepath, "wb") as f:
@@ -29,4 +33,4 @@ def download_repo(repo_url, dest_folder):
 
     print(f"Repository downloaded to {filepath}")
 
-download_repo("https://github.com/username/repository", r"C:\Users\USERNAME\Documents\Scripts\Python\github-backup-script\Backups\Public")
+download_repo("https://github.com/Username/Repository", r"C:\Users\USERNAME\Documents\Scripts\Python\github-backup-script\Backups\Private")

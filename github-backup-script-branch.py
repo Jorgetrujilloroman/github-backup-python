@@ -30,4 +30,4 @@ def download_repo(repo_url, dest_folder, branch="main"):
     print(f"Repository downloaded to {filepath}")
 
 
-download_repo("https://github.com/Jorgetrujilloroman/Test", r"C:\Users\Jorge Trujillo\Documents\Scripts\Python\downloads", "Branch-test")
+download_repo("https://github.com/Username/Repository", r"C:\Users\USERNAME\Documents\Scripts\Python\downloads", "Branch-test")
