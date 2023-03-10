@@ -1,0 +1,13 @@
+::This bash execute the python scripts created to backup github repositories.
+
+@echo off
+python "C:\Users\YOUR_USERNAME\Documents\Scripts\Python\github-backup-script\delete-older-backups.py"
+echo -Older backups has been deleted
+echo ...
+echo -Saving private repository; it may take a few minutes...
+python "C:\Users\YOUR_USERNAME\Documents\Scripts\Python\github-backup-script\github-backup-private-repo.py"
+echo -Private backup saved successfully
+echo ...
+echo -Saving public repository; it may take a few minutes...
+python "C:\Users\YOUR_USERNAME\Documents\Scripts\Python\github-backup-script\github-backup-public-repo.py"
+echo -Public backup saved successfully

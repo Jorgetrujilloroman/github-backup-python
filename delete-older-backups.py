@@ -18,8 +18,7 @@ def delete_old_files(folder_path, hours_del):
             os.remove(filepath)
             print(f"Deleted old file: {filename}")
 
-# Example usage: delete all zip files in "C:\my_folder" that are older than 2 hours
-delete_old_files(r"C:\Users\USERNAME\Documents\Scripts\Python\github-backup-script\Backups\Private", 2)
-delete_old_files(r"C:\Users\USERNAME\Documents\Scripts\Python\github-backup-script\Backups\Public", 2)
+# Change the second parameter on the next functions to modify the erasin frequency. Defalut: 48h
 
-#Change USERNAME for your windows user name.
+delete_old_files(r"C:\Users\YOUR_USERNAME\Documents\Scripts\Python\github-backup-script\Backups\Private", 48)
+delete_old_files(r"C:\Users\YOUR_USERNAME\Documents\Scripts\Python\github-backup-script\Backups\Public", 48)

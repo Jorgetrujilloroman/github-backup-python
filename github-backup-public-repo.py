@@ -3,6 +3,7 @@ import datetime
 import os
 import shutil
 
+#You can change the branch by changing the third parameter. Default: "main"
 def download_repo(repo_url, dest_folder, branch="main"):
     # Make a GET request to the GitHub API to download the repository as a zip file
     zip_url = f"{repo_url}/archive/{branch}.zip"
@@ -17,7 +18,7 @@ def download_repo(repo_url, dest_folder, branch="main"):
 
     # Save the contents of the zip file to a local file with the current date in the filename
     now = datetime.datetime.now()
-    filename = f"repo_{now.strftime('%Y-%m-%d')}_{branch}.zip"
+    filename = f"Public-content-backup_{now.strftime('%Y-%m-%d-%H')}h_{branch}.zip"
     filepath = os.path.join(dest_folder, filename)
 
     with open(filepath, "wb") as f:
@@ -29,5 +30,5 @@ def download_repo(repo_url, dest_folder, branch="main"):
 
     print(f"Repository downloaded to {filepath}")
 
-
-download_repo("https://github.com/Username/Repository", r"C:\Users\USERNAME\Documents\Scripts\Python\downloads", "Branch-test")
+#Modify download_repo function with your own parameters.
+download_repo("https://github.com/GIT-USERNAME/PUBLIC-REPOSITORY", r"C:\Users\YOUR_USERNAME\Documents\Scripts\Python\github-backup-script\Backups\Private")
