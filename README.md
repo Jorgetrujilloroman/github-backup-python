@@ -1,24 +1,26 @@
 # github-backup-python
-Python script and batch to make an extra security copy of a public or private GitHub repository.
+Python script and Windows/Linux batch to make an extra security copy of a public or private GitHub repository downloading it locally every 2 hours and cleaning old copies to save space on the disk.
 
 To make it work you will need to follow the next steps:
 
 1. Install [Python](https://www.python.org/downloads/) on your system.
-2. If you want to backup a private repository you will need to [create an access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) to add in the "github-backup-private-repo.py" script.
 
-## SCRIPTS
+2. If you want to backup a private repository you will need to [create an access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) to add to the **"github-backup-script.py"** script.
 
-To make the .py scripts work you have to edit them and modify the **download_repo()** functions setting your GitHub repository and your backup directory.
+3. Download this repository and save it in a folder of your choice.
 
--**delete-older-backups.py** -> This script deletes backups older than 48 hours to save space on the disk. You can change the "cleaning" frequency by changing the second parameter of the function setting the erasing frequency in hours. It is 48h by default.
+## SCRIPT
 
--**github-backup-public-repo.py** -> This script saves a public GitHub repository locally on the directory that you define on the download_repo() function. You can also change the branch to backup changing the third parameter on the same function.
+To make the .py script works you have to edit it and modify the next parameters setting your GitHub private and public repositories and your backup directories: 
 
--**github-backup-private-repo.py** -> This script saves a private GitHub repository locally on the directory that you define on the download_repo() function. You need to introduce in the function an Access Token previously generated on GitHub as explained before to save private repositories.
+- ```private_repository_url = " "```
+- ```public_repository_url = " "```
+- ```private_backup_folder = " "```
+- ```public_backup_folder = " "```
 
 ## WINDOWS
 
-To make the bash file work, you have to edit the .bat bash file named **"backups-automation-batch.bat"** by right-clicking them and pressing "Edit". Then you have to replace "USERNAME" your Windows current user in the three python commands. 
+If you are using Windows, to make the bash file work, you only have to edit the .bat bash file named **"backups-automation-batch.bat"** by right-clicking it and pressing "Edit". Then you have to replace "USERNAME" with your Windows current user. 
 
 You can test if the bat script is working by double-clicking it. If it works properly, a cmd window will be opened and the scripts will start running. 
 
@@ -30,9 +32,29 @@ You have to change the "Actions Start a Program" route by changing "USERNAME" to
 
 By default, the tasks are executed each hour but you can change it by ```Double click on the task -> Triggers -> Edit```
 
+If you prefer you can **create your own task** by following the next steps:
+
+1. Open Task Scheduler by searching for it in the Start menu.
+
+2. Click on "Create Task" in the "Actions" pane on the right.
+
+3. In the "General" tab, give the task a name and description.
+
+4. In the "Triggers" tab, click "New" to set when the task should run (e.g. daily at a specific time).
+
+5. In the "Actions" tab, click "New" and select "Start a program".
+
+6. Browse to the location of the downloaded "github-backup-script.py" script and select it.
+
+7. In the "Conditions" tab, you can set additional criteria for when the task should run (e.g. only when the computer is plugged in).
+
+8. In the "Settings" tab, you can configure options such as whether the task should run even if the user is not logged in.
+
+9. Click "OK" to save the task.
+
 ## LINUX
 
-To make it work on a Linux OS you will need to automatice the execution of the python scripts by creating a .sh bash and schedule its execution using [Cron](https://man7.org/linux/man-pages/man8/cron.8.html) 
+To make it work on a Linux OS you will need to automate the execution of the python script by creating a .sh bash and scheduling its execution using [Cron](https://man7.org/linux/man-pages/man8/cron.8.html) 
 
 To do it follow the next steps:
 
@@ -42,17 +64,11 @@ To do it follow the next steps:
 ```
 #!/bin/bash
 
-# Run first Python script
-/usr/bin/python3 /path/to/first/script.py
-
-# Run second Python script
-/usr/bin/python3 /path/to/second/script.py
-
-# Run third Python script
-/usr/bin/python3 /path/to/third/script.py
+# Run Python script
+/usr/bin/python3 /path/to/script.py
 ```
 
-Replace /path/to/first/script.py, /path/to/second/script.py, and /path/to/third/script.py with the paths to the Python scripts downloaded on this repository. 
+Replace /path/to/first/script.py with the path to the Python script downloaded on this repository. 
 
 3. Save the file and exit the text editor.
 4. Make the script executable by running the command: ```chmod +x /path/to/backups-automation-batch.sh```
