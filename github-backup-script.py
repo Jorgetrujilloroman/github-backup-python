@@ -10,7 +10,7 @@ private_backup_folder = r" "
 public_backup_folder = r" "
 
 # Downloading private repository function
-# It is important to keep your token safe and don't share it with anyone.
+# It is important to keep your token safe and don't share it with anyone
 
 def download_private_repo(repo_url, dest_folder, branch="main", token="Your_Token_Here"):
     # Make a GET request to the GitHub API to download the repository as a zip file
