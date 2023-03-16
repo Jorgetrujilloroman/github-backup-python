@@ -9,10 +9,10 @@ public_repository_url = " "
 private_backup_folder = r" "   
 public_backup_folder = r" "
 
-# Downloading private repository function
+# Downloading repositories function
 # It is important to keep your token safe and don't share it with anyone.
 
-def download_private_repo(repo_url, dest_folder, branch="main", token="Your_Token_Here"):
+def download_repo(repo_url, dest_folder, branch="main", token="your_token"):
     # Make a GET request to the GitHub API to download the repository as a zip file
     headers = {"Authorization": f"token {token}"}
     zip_url = f"{repo_url}/archive/{branch}.zip"
@@ -26,36 +26,9 @@ def download_private_repo(repo_url, dest_folder, branch="main", token="Your_Toke
     os.makedirs(dest_folder, exist_ok=True)
 
     # Save the contents of the zip file to a local file with the current date in the filename
+    repo_name = repo_url.split("/")[-1]
     now = datetime.datetime.now()
-    filename = f"Private-content-backup_{now.strftime('%Y-%m-%d-%H')}h_{branch}.zip"
-    filepath = os.path.join(dest_folder, filename)
-
-    with open(filepath, "wb") as f:
-        response.raw.decode_content = True
-        shutil.copyfileobj(response.raw, f)
-
-    # Close the response to free up resources
-    response.close()
-
-    print(f"Repository downloaded to {filepath}")
-    
-# Downloading public repository function
-# You can change the branch by changing the third parameter. Default: "main"
-def download_public_repo(repo_url, dest_folder, branch="main"):
-    # Make a GET request to the GitHub API to download the repository as a zip file
-    zip_url = f"{repo_url}/archive/{branch}.zip"
-    response = requests.get(zip_url, stream=True)
-
-    # If the response status code is not 200, raise an error
-    if response.status_code != 200:
-        raise ValueError(f"Failed to download repository. Status code: {response.status_code}")
-
-    # Create the destination folder if it does not exist
-    os.makedirs(dest_folder, exist_ok=True)
-
-    # Save the contents of the zip file to a local file with the current date in the filename
-    now = datetime.datetime.now()
-    filename = f"Public-content-backup_{now.strftime('%Y-%m-%d-%H')}h_{branch}.zip"
+    filename = f"{repo_name}-{branch}_{now.strftime('%Y-%m-%d_%Hh_%Mm')}_backup.zip"
     filepath = os.path.join(dest_folder, filename)
 
     with open(filepath, "wb") as f:
@@ -85,17 +58,17 @@ def delete_old_files(folder_path, hours_del):
             os.remove(filepath)
             print(f"Deleted old file: {filename}")
 
-#Delete the next line to start the script without the user interaction
+#Delete or comment the next line to start the script without the user interaction
 input('Press any button to start..')
 
 # Modify the parameters in the begining of the script.
 print(f"Downloading private repository..")
-download_private_repo(private_repository_url, private_backup_folder )
+download_repo(private_repository_url, private_backup_folder )
 print(f"Private repository downloaded successfully..")
 
 print(f"Downloading public repository..")
 # Modify download_public_repo function with your own parameters.
-download_private_repo(public_repository_url, public_backup_folder)
+download_repo(public_repository_url, public_backup_folder)
 print(f"Public repository downloaded successfully..")
 
 # Execute the backup-cleaner function
