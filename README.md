@@ -11,12 +11,14 @@ To make it work you will need to follow the next steps:
 
 ## SCRIPT
 
-To make the .py script works you have to edit it and modify the next parameters setting your GitHub private and public repositories and your backup directories: 
+-To make the .py script works you have to edit it and modify the next parameters setting your GitHub private and public repositories and your backup directories: 
 
 - ```private_repository_url = " "```
 - ```public_repository_url = " "```
 - ```private_backup_folder = " "```
 - ```public_backup_folder = " "```
+
+-To download private repositories, you should add your personal access token and set it in ```download_repo(repo_url, dest_folder, branch="main", token="your_token")``` definition.
 
 ## WINDOWS
 
@@ -28,7 +30,7 @@ I made this code work on a Windows system using the Task Scheduler to automatize
 
 If you are using Windows, you can import the task named *"GitHub-Backup-Script-Automation.xml"* by going to ```Task Scheduler -> Actions -> Import Task -> Importing the tasks```
 
-You have to change the "Actions Start a Program" route by changing "USERNAME" to your Windows current user. 
+While importing the task, you have to change the "Actions Start a Program" route by going to ```Actions -> Edit -> Browse``` and choosing the **"github-backup-script.py"** on the folder where you downloaded it. 
 
 By default, the tasks are executed each hour but you can change it by ```Double click on the task -> Triggers -> Edit```
 
