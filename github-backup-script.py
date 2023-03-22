@@ -2,6 +2,8 @@ import requests
 import datetime
 import os
 import shutil
+import urllib.request
+import time
 
 #Modify these parameters with your own.
 private_repository_url = " "
@@ -58,23 +60,47 @@ def delete_old_files(folder_path, hours_del):
             os.remove(filepath)
             print(f"Deleted old file: {filename}")
 
-#Delete or comment the next line to start the script without the user interaction
-input('Press any button to start..')
 
-# Modify the parameters in the begining of the script.
-print(f"Downloading private repository..")
-download_repo(private_repository_url, private_backup_folder )
-print(f"Private repository downloaded successfully..")
+# Check if the device is connected to the internet
+def check_internet_connection():
+    try:
+        urllib.request.urlopen("https://www.google.com")
+        return True
+    except:
+        return False
 
-print(f"Downloading public repository..")
-# Modify download_public_repo function with your own parameters.
-download_repo(public_repository_url, public_backup_folder)
-print(f"Public repository downloaded successfully..")
+connected = False
 
-# Execute the backup-cleaner function
-# Change the second parameter on the next functions to change the deleting frequency. Defalut: 48h
-print(f"Deleting old repositories..")
-delete_old_files(private_backup_folder, 48)
-delete_old_files(public_backup_folder, 48)
-print(f"Old backups deleted successfully..")
-print(f"All work done here!!!")
+# Loop while user is not connected to the internet
+while not connected:
+    if check_internet_connection():
+
+        #Uncomment the next line to start after an user confirmation:
+        #input('Press any button to start..')
+
+        # Modify the parameters in the begining of the script.
+        print(f"Downloading private repository..")
+        download_repo(private_repository_url, private_backup_folder )
+        print(f"Private repository downloaded successfully..")
+
+        print(f"Downloading public repository..")
+        # Modify download_public_repo function with your own parameters.
+        download_repo(public_repository_url, public_backup_folder)
+        print(f"Public repository downloaded successfully..")
+
+        # Execute the backup-cleaner function
+        # Change the second parameter on the next functions to change the deleting frequency. Defalut: 48h
+        print(f"Deleting old repositories..")
+        delete_old_files(private_backup_folder, 48)
+        delete_old_files(public_backup_folder, 48)
+        print(f"Old backups deleted successfully..")
+        print(f"All work done here!!!") 
+
+
+        connected = True
+
+    #If not connected to the internet, returns error message
+    else:
+        print("Device is not connected to the internet. Retrying in 10 seconds...")
+        time.sleep(10)
+
