@@ -10,11 +10,12 @@ private_repository_url = " "
 public_repository_url = " "
 private_backup_folder = r" "   
 public_backup_folder = r" "
+token = ""
 
 # Downloading repositories function
 # It is important to keep your token safe and don't share it with anyone.
 
-def download_repo(repo_url, dest_folder, branch="main", token="your_token"):
+def download_repo(repo_url, dest_folder, token, branch="main"):
     # Make a GET request to the GitHub API to download the repository as a zip file
     headers = {"Authorization": f"token {token}"}
     zip_url = f"{repo_url}/archive/{branch}.zip"
@@ -69,38 +70,44 @@ def check_internet_connection():
     except:
         return False
 
-connected = False
 
-# Loop while user is not connected to the internet
-while not connected:
-    if check_internet_connection():
+def main():
+    connected = False
 
-        #Uncomment the next line to start after an user confirmation:
-        #input('Press any button to start..')
+    # Loop while user is not connected to the internet
+    while not connected:
+        if check_internet_connection():
 
-        # Modify the parameters in the begining of the script.
-        print(f"Downloading private repository..")
-        download_repo(private_repository_url, private_backup_folder )
-        print(f"Private repository downloaded successfully..")
+            # Uncomment the next line to start after an user confirmation:
+            # input('Press any button to start..')
 
-        print(f"Downloading public repository..")
-        # Modify download_public_repo function with your own parameters.
-        download_repo(public_repository_url, public_backup_folder)
-        print(f"Public repository downloaded successfully..")
+            # Modify the parameters in the begining of the script.
+            print(f"Downloading private repository...")
+            download_repo(private_repository_url, private_backup_folder, token)
+            print(f"Private repository downloaded successfully...")
 
-        # Execute the backup-cleaner function
-        # Change the second parameter on the next functions to change the deleting frequency. Defalut: 48h
-        print(f"Deleting old repositories..")
-        delete_old_files(private_backup_folder, 48)
-        delete_old_files(public_backup_folder, 48)
-        print(f"Old backups deleted successfully..")
-        print(f"All work done here!!!") 
+            print(f"Downloading public repository...")
+            # Modify download_public_repo function with your own parameters.
+            download_repo(public_repository_url, public_backup_folder, token)
+            print(f"Public repository downloaded successfully...")
+
+            # Execute the backup-cleaner function
+            # Change the second parameter on the next functions to change the deleting frequency. Defalut: 48h
+            print(f"Deleting old repositories...")
+            delete_old_files(private_backup_folder, 48)
+            delete_old_files(public_backup_folder, 48)
+            print(f"Old backups deleted successfully...")
+            print(f"All work done here!!!") 
 
 
-        connected = True
+            connected = True
 
-    #If not connected to the internet, returns error message
-    else:
-        print("Device is not connected to the internet. Retrying in 10 seconds...")
-        time.sleep(10)
+        #If not connected to the internet, returns error message
+        else:
+            print("Device is not connected to the internet. Retrying in 10 seconds...")
+            time.sleep(10)
+        
 
+if __name__ == "__main__":
+
+    main()
