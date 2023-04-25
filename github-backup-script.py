@@ -81,13 +81,14 @@ def main():
             # Uncomment the next line to start after an user confirmation:
             # input('Press any button to start..')
 
-            # Modify the parameters in the begining of the script.
+            # You can comment/delete one of the download_repo functions if you don't need it 
+            # Set the parammeters in the secrets.ini file
             print(f"Downloading private repository...")
             download_repo(private_repository_url, private_backup_folder, token)
             print(f"Private repository downloaded successfully...")
 
             print(f"Downloading public repository...")
-            # Modify download_public_repo function with your own parameters.
+            # Set the parammeters in the secrets.ini file
             download_repo(public_repository_url, public_backup_folder, token)
             print(f"Public repository downloaded successfully...")
 

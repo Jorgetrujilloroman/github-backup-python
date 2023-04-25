@@ -3,30 +3,42 @@ Python script and Windows/Linux batch to make an extra security copy of a public
 
 To make it work you will need to follow the next steps:
 
-1. Install [Python](https://www.python.org/downloads/) on your system.
+1. Install [Python 3.11.x](https://www.python.org/downloads/) on your system.
 
-2. If you want to backup a private repository you will need to [create an access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) to add to the **"github-backup-script.py"** script.
+2. If you want to backup a private repository you will need to [create an access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) to add to the **"secrets.ini"** file allowing download private repositories.
 
-3. Download this repository and save it in a folder of your choice.
+3. Download (clone) this repository and save it in a folder of your choice.
 
 ## SCRIPT
 
--To make the .py script works you have to edit it and modify the next parameters setting your GitHub private and public repositories and your backup directories: 
+-To allow the script works you have to open/edit the secrets.ini file and replace the <> parameters setting your Personal Access Token, the GitHub private and public repositories and your backup directories: 
 
-- ```private_repository_url = " "```
-- ```public_repository_url = " "```
-- ```private_backup_folder = " "```
-- ```public_backup_folder = " "```
+```
+[credentials]
+token = <Your_Personal_Access_GitHub_Token>
 
--To download private repositories, you should add your personal access token and set it in ```download_repo(repo_url, dest_folder, branch="main", token="your_token")``` definition.
+[repositories]
+private_repository_url = <GitHub_Private_Repo_URL>
+public_repository_url = <GitHub_Public_Repo_URL>
+
+[backup-folders]
+private_backup_folder = <Private_Backup_Folder_Full_Path>
+public_backup_folder = <Public_Backup_Folder_Full_Path>
+```
+
+- If you only need to download a public or a private repository, you can comment/delete the download_repo() functions in the .py script (lines 87 and/or 92):
+
+```
+87 - //download_repo(private_repository_url, private_backup_folder, token)
+
+92 - //download_repo(public_repository_url, public_backup_folder, token)
+```
 
 ## WINDOWS
 
-If you are using Windows, to make the bash file work, you only have to edit the .bat bash file named **"backups-automation-batch.bat"** by right-clicking it and pressing "Edit". Then you have to replace "USERNAME" with your Windows current user. 
+If you are using Windows, to make the bash file work, you only have to test if the .bat script is working by double-clicking it. If it works properly, a cmd window will be opened and the scripts will start running. 
 
-You can test if the bat script is working by double-clicking it. If it works properly, a cmd window will be opened and the scripts will start running. 
-
-I made this code work on a Windows system using the Task Scheduler to automatize the process, by executing the batch file periodically.
+I made this code works on a Windows system using the Task Scheduler to automatize the process, by executing the batch file periodically.
 
 If you are using Windows, you can import the task named *"GitHub-Backup-Script-Automation.xml"* by going to ```Task Scheduler -> Actions -> Import Task -> Importing the tasks```
 
@@ -56,7 +68,7 @@ If you prefer you can **create your own task** by following the next steps:
 
 ## LINUX
 
-To make it work on a Linux OS you will need to automate the execution of the python script by creating a .sh bash and scheduling its execution using [Cron](https://man7.org/linux/man-pages/man8/cron.8.html) 
+To make it work on a Linux OS you will need to automate the execution of the Python script by creating a .sh bash and scheduling its execution using [Cron](https://man7.org/linux/man-pages/man8/cron.8.html) 
 
 To do it follow the next steps:
 
