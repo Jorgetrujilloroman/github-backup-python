@@ -101,3 +101,5 @@ This will run the *backups-automation-batch.sh* file every hour at the start of 
 That's it! Your Python scripts should now be executed automatically every hour. You can check the logs in ```/var/log/syslog``` to confirm that the script is being executed.
 
 
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work, created by **Jorge Trujillo Román**, is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
